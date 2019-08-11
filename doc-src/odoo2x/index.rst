@@ -2,7 +2,7 @@ Odoo to X Integrations
 ======================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   odoo2telegram
+   odoo2telegram/documentation

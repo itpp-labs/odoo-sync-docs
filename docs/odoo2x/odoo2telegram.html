@@ -35,7 +35,151 @@
             
   <div class="section" id="notify-in-telegram-on-odoo-updates">
 <h1>Notify in Telegram on Odoo Updates<a class="headerlink" href="#notify-in-telegram-on-odoo-updates" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+<p>Here we’ll make a telegram bot, that sends you notification whenever new task
+assigned to you is created. You need:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://telegram.org/">Telegram</a> account to receive messages</li>
+<li>AWS Account to use <a href="#id1"><span class="problematic" id="id2">`AWS Lambda &lt;https://aws.amazon.com/lambda/`__</span></a></li>
+<li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Webhooks</a></li>
+</ul>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#deployment" id="id3">Deployment</a><ul>
+<li><a class="reference internal" href="#create-a-bot" id="id4">Create a bot</a></li>
+<li><a class="reference internal" href="#prepare-zip-file" id="id5">Prepare zip file</a></li>
+<li><a class="reference internal" href="#create-lambda-function" id="id6">Create Lambda function</a><ul>
+<li><a class="reference internal" href="#runtime" id="id7">Runtime</a></li>
+<li><a class="reference internal" href="#function-code" id="id8">Function code</a></li>
+<li><a class="reference internal" href="#environment-variables" id="id9">Environment variables</a></li>
+<li><a class="reference internal" href="#trigger" id="id10">Trigger</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#register-webhook" id="id11">Register webhook</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#try-it-out" id="id12">Try it out</a></li>
+<li><a class="reference internal" href="#source" id="id13">Source</a></li>
+<li><a class="reference internal" href="#usage" id="id14">Usage</a></li>
+</ul>
+</div>
+<div class="section" id="deployment">
+<h2><a class="toc-backref" href="#id3">Deployment</a><a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-a-bot">
+<h3><a class="toc-backref" href="#id4">Create a bot</a><a class="headerlink" href="#create-a-bot" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://telegram.me/botfather">https://telegram.me/botfather</a> – follow instruction to set bot name and get bot token.</p>
+<p>Check your steps:</p>
+<ul class="simple">
+<li>Use the /newbot command to create a new bot first.</li>
+<li>The name of the bot must be end witn “bot” (e.g. TetrisBot or tetris_bot).</li>
+<li>Keep your token secure and store safely, it can be used by anyone to control your bot.</li>
+</ul>
+</div>
+<div class="section" id="prepare-zip-file">
+<h3><a class="toc-backref" href="#id5">Prepare zip file</a><a class="headerlink" href="#prepare-zip-file" title="Permalink to this headline">¶</a></h3>
+<p>To make <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html">deployment package</a> execute following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bot</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bot</span>
+
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">telegram</span><span class="o">-</span><span class="n">bot</span> <span class="o">-</span><span class="n">t</span> <span class="o">.</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">it</span><span class="o">-</span><span class="n">projects</span><span class="o">-</span><span class="n">llc</span><span class="o">/</span><span class="n">odoo</span><span class="o">-</span><span class="n">sync</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">doc</span><span class="o">-</span><span class="n">src</span><span class="o">/</span><span class="n">odoo2x</span><span class="o">/</span><span class="n">odoo2telegram</span><span class="o">/</span><span class="n">lambda_handler</span><span class="o">.</span><span class="n">py</span>
+<span class="nb">zip</span> <span class="o">-</span><span class="n">r</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bot</span><span class="o">.</span><span class="n">zip</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-lambda-function">
+<h3><a class="toc-backref" href="#id6">Create Lambda function</a><a class="headerlink" href="#create-lambda-function" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="runtime">
+<h4><a class="toc-backref" href="#id7">Runtime</a><a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h4>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.6</span></code></p>
+</div>
+<div class="section" id="function-code">
+<h4><a class="toc-backref" href="#id8">Function code</a><a class="headerlink" href="#function-code" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Set <strong>Code entry type</strong> to <em>Upload a .zip file</em></li>
+<li>Select <code class="docutils literal notranslate"><span class="pre">bot.zip</span></code> file you made</li>
+</ul>
+</div>
+<div class="section" id="environment-variables">
+<h4><a class="toc-backref" href="#id9">Environment variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">BOT_TOKEN</span></code> – the one you got from BotFather</li>
+<li><code class="docutils literal notranslate"><span class="pre">TELEGRAM_USER_ID</span></code> – put here your ID. If you don’t know it, skip this variable, deploy bot and then use command <code class="docutils literal notranslate"><span class="pre">/myid</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">ODOO_USER_ID</span></code> – put your ID. You get the ID, navigate to <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">Settings</span> <span class="pre">]]</span> <span class="pre">&gt;&gt;</span> <span class="pre">Users</span></code> menu, open your user, check ID value in the browser URL</li>
+<li><code class="docutils literal notranslate"><span class="pre">LOGGING_LEVEL</span></code> – Level of loger. (Allowed values: DEBUG, INFO, CRITICAL, ERROR, WARNING), by default: INFO</li>
+</ul>
+</div>
+<div class="section" id="trigger">
+<h4><a class="toc-backref" href="#id10">Trigger</a><a class="headerlink" href="#trigger" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>API Gateway</strong>. Once you configure it and save, you will see <code class="docutils literal notranslate"><span class="pre">Invoke</span> <span class="pre">URL</span></code> under Api Gateway <strong>details</strong> section</li>
+<li>Set the security mechanism for your API endpoint as <em>Open</em></li>
+</ul>
+</div>
+</div>
+<div class="section" id="register-webhook">
+<h3><a class="toc-backref" href="#id11">Register webhook</a><a class="headerlink" href="#register-webhook" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Open Odoo</p>
+</li>
+<li><p class="first">Install module <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks Module</a></p>
+</li>
+<li><p class="first">Create an Automated Action with the following values (see <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Module Documentation</a> for details):</p>
+<ul>
+<li><p class="first"><strong>Model:</strong> <em>Task</em> (<code class="docutils literal notranslate"><span class="pre">project.task</span></code>)</p>
+</li>
+<li><p class="first"><strong>Trigger Condition</strong>: <em>On Creation</em></p>
+</li>
+<li><p class="first">Filter by task by users:</p>
+<ul class="simple">
+<li>In Odoo 10.0: set <strong>Condition</strong> to <code class="docutils literal notranslate"><span class="pre">record.user_id</span> <span class="pre">=</span> <span class="pre">123</span></code></li>
+<li>In Odoo 11.0+: set <strong>Apply On</strong> to <code class="docutils literal notranslate"><span class="pre">[[&quot;user_id&quot;,&quot;=&quot;,123]]</span></code></li>
+</ul>
+<p>Here <code class="docutils literal notranslate"><span class="pre">123</span></code> is your user ID. To get the ID, navigate to <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">Settings</span> <span class="pre">]]</span> <span class="pre">&gt;&gt;</span> <span class="pre">Users</span></code> menu, open your user, check ID value in the browser URL</p>
+</li>
+<li><p class="first"><strong>Python Code</strong>:</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="try-it-out">
+<h2><a class="toc-backref" href="#id12">Try it out</a><a class="headerlink" href="#try-it-out" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Create new task assigned to you.</li>
+<li>RESULT: the bot will send you a notification</li>
+<li>If something goes wrong, check Odoo logs and <a class="reference external" href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> logs</li>
+</ul>
+</div>
+<div class="section" id="source">
+<h2><a class="toc-backref" href="#id13">Source</a><a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
+<p>Key script of the bot is presented below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">telebot</span>  <span class="c1"># https://github.com/eternnoir/pyTelegramBotAPI</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Event: </span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id14">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="warning admonition">
+<p class="first admonition-title">Need a custom integration?</p>
+<p>For any further assistance contact us by <a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">email</a> or fill out <a class="reference external" href="https://www.it-projects.info/page/website.contactus">request form</a>:</p>
+<ul class="last simple">
+<li><a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">sync<span>&#64;</span>it-projects<span>&#46;</span>info</a></li>
+<li><a class="reference external" href="https://www.it-projects.info/page/website.contactus">https://www.it-projects.info/page/website.contactus</a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

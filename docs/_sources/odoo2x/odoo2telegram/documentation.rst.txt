@@ -6,7 +6,7 @@ Here we'll make a telegram bot, that sends you notification whenever new task
 assigned to you is created. You need:
 
 * `Telegram <https://telegram.org/>`__ account to receive messages
-* AWS Account to use `AWS Lambda <https://aws.amazon.com/lambda/`__
+* AWS Account to use `AWS Lambda <https://aws.amazon.com/lambda/>`__
 * `Odoo <https://www.odoo.com/>`__  with admin access to setup `Webhooks <https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/>`__
 
 .. contents::
@@ -27,13 +27,13 @@ Check your steps:
 
 Prepare zip file
 ----------------
-To make `deployment package <https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html>`_ execute following commands::
+To make `deployment package <https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html>`__ execute following commands::
 
     mkdir /tmp/bot
     cd /tmp/bot
 
     pip3 install python-telegram-bot -t .
-    wget https://raw.githubusercontent.com/it-projects-llc/odoo-sync/master/doc-src/odoo2x/odoo2telegram/lambda_handler.py
+    wget https://raw.githubusercontent.com/it-projects-llc/odoo-sync/master/doc-src/odoo2x/odoo2telegram/lambda_function.py
     zip -r /tmp/bot.zip *
 
 
@@ -53,8 +53,7 @@ Function code
 Environment variables
 ~~~~~~~~~~~~~~~~~~~~~
 * ``BOT_TOKEN`` -- the one you got from BotFather
-* ``TELEGRAM_USER_ID`` -- put here your ID. If you don't know it, skip this variable, deploy bot and then use command ``/myid`` 
-* ``ODOO_USER_ID`` -- put your ID. You get the ID, navigate to ``[[ Settings ]] >> Users`` menu, open your user, check ID value in the browser URL
+* ``TELEGRAM_USER_ID`` -- put here your ID. You can get one by sending any message to `Get My ID bot <https://telegram.me/itpp_myid_bot>`__
 * ``LOGGING_LEVEL`` -- Level of loger. (Allowed values: DEBUG, INFO, CRITICAL, ERROR, WARNING), by default: INFO
 
 Trigger
@@ -72,26 +71,28 @@ Register webhook
   * **Trigger Condition**: *On Creation*
   * Filter by task by users:
 
-    * In Odoo 10.0: set **Condition** to ``record.user_id = 123``
+    * In Odoo 10.0: set **Filter** to ``[["user_id","=",123]]``
     * In Odoo 11.0+: set **Apply On** to ``[["user_id","=",123]]``
     
     Here ``123`` is your user ID. To get the ID, navigate to ``[[ Settings ]] >> Users`` menu, open your user, check ID value in the browser URL
 
   * **Python Code**:
 
-    .. code-block: py
+    .. code-block:: py
 
        INVOKE_URL="https://PASTE-YOUR-INVOKE-URL"
        data = {
            "task_name": record.name,
-           "created_by_name": record.created_uid.name,
+           "created_by_name": record.create_uid.name,
        }
+       log("Sending to webhook: %s" % data)
        requests.post(INVOKE_URL, json=data)
 
 Try it out
 ==========
 
-* Create new task assigned to you.
+* Open created telegram bot and send any message to it. It's needed to allow bot send a message to you.
+* Open Odoo and create new task assigned to you.
 * RESULT: the bot will send you a notification
 * If something goes wrong, check Odoo logs and `CloudWatch <https://aws.amazon.com/cloudwatch/>`__ logs
 
@@ -100,13 +101,10 @@ Source
 
 Key script of the bot is presented below:
 
-.. literalinclude:: odoo2telegram/lambda_handler.py
+.. literalinclude:: lambda_function.py
    :language: python
 
-Usage
-=====
-
-.. include:: ../contactus.rst
+.. include:: ../../contactus.rst
 
 
  

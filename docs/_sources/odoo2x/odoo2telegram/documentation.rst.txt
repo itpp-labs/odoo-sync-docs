@@ -1,6 +1,6 @@
-====================================
- Notify in Telegram on Odoo Updates
-====================================
+=======================================
+ Telegram notification on Odoo Updates
+=======================================
 
 Here we'll make a telegram bot, that sends you notification whenever new task
 assigned to you is created. You need:

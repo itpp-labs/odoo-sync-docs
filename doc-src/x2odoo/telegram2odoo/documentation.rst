@@ -2,4 +2,6 @@
  Control Odoo via Telegram
 ===========================
 
-TODO
+Coming soon...
+
+.. include:: ../../contactus.rst

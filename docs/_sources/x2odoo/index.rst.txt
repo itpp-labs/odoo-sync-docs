@@ -5,4 +5,4 @@ X to Odoo Integrations
    :maxdepth: 2
    :caption: Contents:
 
-   telegram2odoo
+   telegram2odoo/documentation

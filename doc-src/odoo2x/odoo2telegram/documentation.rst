@@ -3,11 +3,12 @@
 =======================================
 
 Here we'll make a telegram bot, that sends you notification whenever new task
-assigned to you is created. You need:
+assigned to you is created. You'll need:
 
 * `Telegram <https://telegram.org/>`__ account to receive messages
 * AWS Account to use `AWS Lambda <https://aws.amazon.com/lambda/>`__
-* `Odoo <https://www.odoo.com/>`__  with admin access to setup `Webhooks <https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/>`__
+* .. include:: ../../templates/you_need_odoo_webhook.rst
+
 
 .. contents::
    :local:
@@ -63,9 +64,8 @@ Trigger
 
 Register webhook
 ----------------
-* Open Odoo
-* Install module `Outgoing Webhooks Module <https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/>`__
-* Create an Automated Action with the following values (see `Module Documentation <https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/>`__ for details):
+.. include:: ../../templates/base_automation_webhook-create-rule.rst
+..
 
   * **Model:** *Task* (``project.task``)
   * **Trigger Condition**: *On Creation*
@@ -104,7 +104,7 @@ Key script of the bot is presented below:
 .. literalinclude:: lambda_function.py
    :language: python
 
-.. include:: ../../contactus.rst
+.. include:: ../../templates/contactus.rst
 
 
  

@@ -4,4 +4,4 @@
 
 Coming soon...
 
-.. include:: ../../contactus.rst
+.. include:: ../../templates/contactus.rst

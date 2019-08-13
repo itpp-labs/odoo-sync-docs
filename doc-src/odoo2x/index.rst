@@ -8,4 +8,4 @@ Odoo to X Integrations
    odoo2telegram/documentation
    odoo2github/documentation
    odoo2sms-via-lambda/documentation
-   odoo2android-push-via-ifttt/documentation
+   odoo2push-via-ifttt/documentation

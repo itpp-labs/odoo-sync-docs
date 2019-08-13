@@ -37,11 +37,11 @@
   <div class="section" id="telegram-notification-on-odoo-updates">
 <h1>Telegram notification on Odoo Updates<a class="headerlink" href="#telegram-notification-on-odoo-updates" title="Permalink to this headline">¶</a></h1>
 <p>Here we’ll make a telegram bot, that sends you notification whenever new task
-assigned to you is created. You need:</p>
+assigned to you is created. You’ll need:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://telegram.org/">Telegram</a> account to receive messages</li>
 <li>AWS Account to use <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a></li>
-<li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Webhooks</a></li>
+<li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks</a></li>
 </ul>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -117,13 +117,13 @@ assigned to you is created. You need:</p>
 </div>
 <div class="section" id="register-webhook">
 <h3><a class="toc-backref" href="#id9">Register webhook</a><a class="headerlink" href="#register-webhook" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p class="first">Open Odoo</p>
-</li>
-<li><p class="first">Install module <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks Module</a></p>
-</li>
-<li><p class="first">Create an Automated Action with the following values (see <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Module Documentation</a> for details):</p>
-<ul>
+<ul class="simple">
+<li>Open Odoo</li>
+<li>Install <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks Module</a></li>
+<li>Create an Automated Action with the following values (see <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Module Documentation</a> for details):</li>
+</ul>
+<blockquote>
+<div><ul>
 <li><p class="first"><strong>Model:</strong> <em>Task</em> (<code class="docutils literal notranslate"><span class="pre">project.task</span></code>)</p>
 </li>
 <li><p class="first"><strong>Trigger Condition</strong>: <em>On Creation</em></p>
@@ -147,8 +147,7 @@ assigned to you is created. You need:</p>
 </div>
 </li>
 </ul>
-</li>
-</ul>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="try-it-out">

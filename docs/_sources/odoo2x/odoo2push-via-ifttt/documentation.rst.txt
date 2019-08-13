@@ -8,6 +8,9 @@ You'll need:
 * .. include:: ../../templates/you_need_ifttt.rst
 * A mobile phone with `Android <https://play.google.com/store/apps/details?id=com.ifttt.ifttt&hl=en>`__ or `iOS <https://apps.apple.com/us/app/ifttt/id660944635>`__ app installed.
 
+.. contents::
+   :local:
+
 Prepare IFTTT Webhook URL
 =========================
 
@@ -15,6 +18,8 @@ Prepare IFTTT Webhook URL
 * Click Documentation
 * Choose some event name, e.g. ``product-out-of-stock``
 * Copy the url. It has following format: ``https://maker.ifttt.com/trigger/EVENT_NAME/with/key/SOME-KEY``
+
+.. image:: ifttt-webhook-url.png
 
 Register Webhook
 ================
@@ -50,6 +55,9 @@ Register Webhook
        requests.post(INVOKE_URL, json=data)
 
 
+.. image:: base_automation.png
+
+
 .. We cannot add condition ["product_id.qty_available", ">", 0] to Before Update Domain
 .. From my understanding, it's because qty is changed slighly before updating stock.move and even before updating stock.move.line
 .. For most cases we don't really need for that check
@@ -72,6 +80,8 @@ Prepare IFTTT applet
     * **Message**: ``Product {{Value1}} is out of stock!``
     * **Link URL**: ``{{Value3}}``
     * **Image URL**: ``{{Value2}}``
+
+.. image:: ifttt-applet.png
 
 Try it out
 ==========

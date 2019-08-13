@@ -90,7 +90,7 @@ Now,
 * make module out of stock (e.g. make a fake order at website or just make Inventory Adjustment).
 * RESULT: you can see PUSH notification on your phone
 
-TODO IMAGE
+.. TODO IMAGE
 
 * .. include:: ../../templates/check_odoo_or_ifttt_logs.rst
 

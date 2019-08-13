@@ -41,8 +41,17 @@
 <li><a class="reference external" href="https://ifttt.com/">IFTTT</a>  account to setup <a class="reference external" href="https://ifttt.com/maker_webhooks/">Incoming Webhooks</a></li>
 <li>A mobile phone with <a class="reference external" href="https://play.google.com/store/apps/details?id=com.ifttt.ifttt&amp;hl=en">Android</a> or <a class="reference external" href="https://apps.apple.com/us/app/ifttt/id660944635">iOS</a> app installed.</li>
 </ul>
+<div class="section" id="prepare-ifttt-webhook-url">
+<h2>Prepare IFTTT Webhook URL<a class="headerlink" href="#prepare-ifttt-webhook-url" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Open Webhook page at IFTTT: <a class="reference external" href="https://ifttt.com/maker_webhooks">https://ifttt.com/maker_webhooks</a></li>
+<li>Click Documentation</li>
+<li>Choose some event name, e.g. <code class="docutils literal notranslate"><span class="pre">product-out-of-stock</span></code></li>
+<li>Copy the url. It has following format: <code class="docutils literal notranslate"><span class="pre">https://maker.ifttt.com/trigger/EVENT_NAME/with/key/SOME-KEY</span></code></li>
+</ul>
+</div>
 <div class="section" id="register-webhook">
-<h2>Register webhook<a class="headerlink" href="#register-webhook" title="Permalink to this headline">¶</a></h2>
+<h2>Register Webhook<a class="headerlink" href="#register-webhook" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Open Odoo</li>
 <li>Install <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks Module</a></li>
@@ -50,26 +59,30 @@
 </ul>
 <blockquote>
 <div><ul>
-<li><p class="first"><strong>Model:</strong> <em>Packing Operation</em> (<code class="docutils literal notranslate"><span class="pre">stock.move.line</span></code>)</p>
+<li><p class="first"><strong>Model:</strong> Stock Move (<code class="docutils literal notranslate"><span class="pre">stock.move</span></code>)</p>
 </li>
-<li><p class="first"><strong>Trigger Condition</strong>: <em>On Creation &amp; Update</em></p>
+<li><p class="first"><strong>Trigger Condition</strong>: <em>On Update</em></p>
 </li>
-<li><p class="first"><strong>Before Update Domain</strong>: <code class="docutils literal notranslate"><span class="pre">[[&quot;product_id.qty_available&quot;,&quot;&gt;&quot;,0]]</span></code></p>
+<li><p class="first"><strong>Before Update Domain</strong>: <code class="docutils literal notranslate"><span class="pre">[['state',</span> <span class="pre">'!=',</span> <span class="pre">'done'],</span> <span class="pre">['product_id.website_published',</span> <span class="pre">'=',</span> <span class="pre">True]]</span></code></p>
 <ul class="simple">
 <li>Note, that in Odoo 10.0 field is called <strong>Filter</strong></li>
 </ul>
 </li>
-<li><p class="first"><strong>Apply on</strong>: <code class="docutils literal notranslate"><span class="pre">[[&quot;product_id.qty_available&quot;,&quot;&lt;=&quot;,0]]</span></code></p>
+<li><p class="first"><strong>Apply on</strong>: <code class="docutils literal notranslate"><span class="pre">[['state',</span> <span class="pre">'=',</span> <span class="pre">'done'],['product_id.website_published',</span> <span class="pre">'=',</span> <span class="pre">True],[&quot;product_id.qty_available&quot;,&quot;&lt;=&quot;,0]]</span></code></p>
 <ul class="simple">
 <li>Note, that in Odoo 10.0 field is located in <em>Server Action</em> model and called <strong>Condition</strong></li>
 </ul>
 </li>
 <li><p class="first"><strong>Python Code</strong>:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">INVOKE_URL</span><span class="o">=</span><span class="s2">&quot;https://PASTE-IFTTT-WEBHOOK-URL&quot;</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;ir.config_parameter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s1">&#39;web.base.url&#39;</span><span class="p">);</span>
+<span class="n">template_id</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">product_id</span><span class="o">.</span><span class="n">product_tmpl_id</span><span class="o">.</span><span class="n">id</span>
+<span class="n">image_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;/website/image/product.template/</span><span class="si">%s</span><span class="s2">/image/90x90&quot;</span> <span class="o">%</span> <span class="n">template_id</span>
+<span class="n">product_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;/shop/product/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">template_id</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;value1&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">product_id</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-    <span class="s2">&quot;value2&quot;</span><span class="p">:</span> <span class="n">TODO</span><span class="p">,</span>
-    <span class="s2">&quot;value3&quot;</span><span class="p">:</span> <span class="n">TODO</span><span class="p">,</span>
+    <span class="s2">&quot;value2&quot;</span><span class="p">:</span> <span class="n">image_url</span><span class="p">,</span>
+    <span class="s2">&quot;value3&quot;</span><span class="p">:</span> <span class="n">product_url</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">log</span><span class="p">(</span><span class="s2">&quot;Sending to webhook: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span>
 <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">INVOKE_URL</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
@@ -78,6 +91,26 @@
 </li>
 </ul>
 </div></blockquote>
+</div>
+<div class="section" id="prepare-ifttt-applet">
+<h2>Prepare IFTTT applet<a class="headerlink" href="#prepare-ifttt-applet" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Open url: <a class="reference external" href="https://ifttt.com/create">https://ifttt.com/create</a></li>
+<li><strong>This</strong>: search and select <em>Webhooks</em><ul>
+<li>Choose <em>Receive a web request</em></li>
+<li>Set <strong>Event Name</strong> (in our example, <code class="docutils literal notranslate"><span class="pre">product-out-of-stock</span></code>)</li>
+</ul>
+</li>
+<li><strong>That</strong>: search and select <em>Notifications</em><ul>
+<li>Chose <em>Send a reach notification from the IFTTT app</em><ul>
+<li><strong>Message</strong>: <code class="docutils literal notranslate"><span class="pre">Product</span> <span class="pre">{{Value1}}</span> <span class="pre">is</span> <span class="pre">out</span> <span class="pre">of</span> <span class="pre">stock!</span></code></li>
+<li><strong>Link URL</strong>: <code class="docutils literal notranslate"><span class="pre">{{Value3}}</span></code></li>
+<li><strong>Image URL</strong>: <code class="docutils literal notranslate"><span class="pre">{{Value2}}</span></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="try-it-out">
 <h2>Try it out<a class="headerlink" href="#try-it-out" title="Permalink to this headline">¶</a></h2>
@@ -182,7 +215,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../../_sources/odoo2x/odoo2android-push-via-ifttt/documentation.rst.txt"
+      <a href="../../_sources/odoo2x/odoo2push-via-ifttt/documentation.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

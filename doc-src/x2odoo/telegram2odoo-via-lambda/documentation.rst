@@ -15,6 +15,15 @@ Here we'll make a telegram bot, that receives your message and create a Note in 
 Deployment
 ==========
 
+Configure OpenAPI
+-----------------
+
+.. include:: ../../templates/configure_openapi.rst
+..
+
+* **Model**: Note (``note.note``)
+* ``[x] Create via API``
+
 Create a bot
 ------------
 
@@ -31,6 +40,7 @@ Prepare zip file
     cd /tmp/bot
 
     pip3 install python-telegram-bot -t .
+    pip3 install bravado -t .
     wget https://raw.githubusercontent.com/it-projects-llc/odoo-sync/master/doc-src/x2odoo/telegram2odoo-via-lambda/lambda_function.py
     zip -r /tmp/bot.zip *
 
@@ -53,6 +63,8 @@ Environment variables
 * .. include:: ../../templates/lambda_env_bot_token.rst
 * .. include:: ../../templates/lambda_env_logging_level.rst
 * .. include:: ../../templates/lambda_env_telegram_user_id.rst
+* .. include:: ../../templates/lambda_env_openapi_json_url.rst
+* .. include:: ../../templates/lambda_env_openapi_token.rst
 
 Trigger
 ~~~~~~~
@@ -67,7 +79,12 @@ Tell telegram to send notifications to lambda function when bot receives new mes
 
     BOT_TOKEN="PASTE_BOT_TOKEN_HERE"
     INVOKE_URL="https://PASTE-YOUR-INVOKE-URL"
-    curl -XPOST https://api.telegram.org/bot${BOT_TOKEN}/setWebhook --data-urlencode="url=${INVOKE_URL}"
+    curl -XPOST https://api.telegram.org/bot${BOT_TOKEN}/setWebhook --data-urlencode "url=${INVOKE_URL}"
+
+Max execution time
+------------------
+
+.. include:: ../../templates/lambda_timeout.rst
 
 Try it out
 ==========

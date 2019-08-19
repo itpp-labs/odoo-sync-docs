@@ -7,6 +7,7 @@ odoo-sync.sh: your guide for Odoo Integration
 
    x2odoo/index
    odoo2x/index
+   odoo2odoo/index
 
 
 

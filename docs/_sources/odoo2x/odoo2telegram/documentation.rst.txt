@@ -5,8 +5,8 @@
 Here we'll make a telegram bot, that sends you notification whenever new task
 assigned to you is created. You'll need:
 
-* `Telegram <https://telegram.org/>`__ account to receive messages
-* AWS Account to use `AWS Lambda <https://aws.amazon.com/lambda/>`__
+* .. include:: ../../templates/you_need_telegram_to_create_bot.rst
+* .. include:: ../../templates/you_need_aws_to_create_lambda.rst
 * .. include:: ../../templates/you_need_odoo_webhook.rst
 
 
@@ -18,17 +18,13 @@ Deployment
 
 Create a bot
 ------------
-https://telegram.me/botfather -- follow instruction to set bot name and get bot token.
-
-Check your steps:
-
-* Use the /newbot command to create a new bot first.
-* The name of the bot must be end witn "bot" (e.g. TetrisBot or tetris_bot).
-* Keep your token secure and store safely, it can be used by anyone to control your bot.
+.. include:: ../../templates/create_telegram_bot.rst
 
 Prepare zip file
 ----------------
-To make `deployment package <https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html>`__ execute following commands::
+.. include ../../templates/make_lambda_zip.rst
+
+::
 
     mkdir /tmp/bot
     cd /tmp/bot
@@ -48,22 +44,20 @@ Use ``Python 3.6``
 
 Function code
 ~~~~~~~~~~~~~
-* Set **Code entry type** to *Upload a .zip file*
-* Select ``bot.zip`` file you made
+.. include:: ../../templates/upload_lambda_zip.rst
 
 Environment variables
 ~~~~~~~~~~~~~~~~~~~~~
-* ``BOT_TOKEN`` -- the one you got from BotFather
-* ``TELEGRAM_USER_ID`` -- put here your ID. You can get one by sending any message to `Get My ID bot <https://telegram.me/itpp_myid_bot>`__
-* ``LOGGING_LEVEL`` -- Level of loger. (Allowed values: DEBUG, INFO, CRITICAL, ERROR, WARNING), by default: INFO
+* .. include:: ../../templates/lambda_env_bot_token.rst
+* .. include:: ../../templates/lambda_env_logging_level.rst
+* .. include:: ../../templates/lambda_env_telegram_user_id.rst
 
 Trigger
 ~~~~~~~
-* **API Gateway**. Once you configure it and save, you will see ``Invoke URL`` under Api Gateway **details** section
-* Set the security mechanism for your API endpoint as *Open*
+.. include:: ../../templates/lambda_trigger.rst
 
-Register webhook
-----------------
+Register lambda webhook
+-----------------------
 .. include:: ../../templates/base_automation_webhook-create-rule.rst
 ..
 
@@ -94,7 +88,7 @@ Try it out
 * Open created telegram bot and send any message to it. It's needed to allow bot send a message to you.
 * Open Odoo and create new task assigned to you.
 * RESULT: the bot will send you a notification
-* If something goes wrong, check Odoo logs and `CloudWatch <https://aws.amazon.com/cloudwatch/>`__ logs
+* .. include:: ../../templates/check_odoo_cloudwatch_logs.rst
 
 Source
 ======

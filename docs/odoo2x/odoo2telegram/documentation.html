@@ -40,8 +40,8 @@
 <p>Here we’ll make a telegram bot, that sends you notification whenever new task
 assigned to you is created. You’ll need:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://telegram.org/">Telegram</a> account to receive messages</li>
-<li>AWS Account to use <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a></li>
+<li><a class="reference external" href="https://telegram.org/">Telegram</a> account to create a <a class="reference external" href="https://core.telegram.org/bots">telegram bot</a></li>
+<li>AWS Account to create <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a> function</li>
 <li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks</a></li>
 </ul>
 <div class="contents local topic" id="contents">
@@ -56,7 +56,7 @@ assigned to you is created. You’ll need:</p>
 <li><a class="reference internal" href="#trigger" id="id8">Trigger</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#register-webhook" id="id9">Register webhook</a></li>
+<li><a class="reference internal" href="#register-lambda-webhook" id="id9">Register lambda webhook</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#try-it-out" id="id10">Try it out</a></li>
@@ -67,17 +67,15 @@ assigned to you is created. You’ll need:</p>
 <h2><a class="toc-backref" href="#id1">Deployment</a><a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="create-a-bot">
 <h3><a class="toc-backref" href="#id2">Create a bot</a><a class="headerlink" href="#create-a-bot" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://telegram.me/botfather">https://telegram.me/botfather</a> – follow instruction to set bot name and get bot token.</p>
-<p>Check your steps:</p>
 <ul class="simple">
-<li>Use the /newbot command to create a new bot first.</li>
-<li>The name of the bot must be end witn “bot” (e.g. TetrisBot or tetris_bot).</li>
-<li>Keep your token secure and store safely, it can be used by anyone to control your bot.</li>
+<li>In telegram client open <a class="reference external" href="https://t.me/botfather">BotFather</a></li>
+<li>Send <code class="docutils literal notranslate"><span class="pre">/newbot</span></code> command to create a new bot</li>
+<li>Follow instruction to set bot name and get bot token</li>
+<li>Keep your token secure and store safely, it can be used by anyone to control your bot</li>
 </ul>
 </div>
 <div class="section" id="prepare-zip-file">
 <h3><a class="toc-backref" href="#id3">Prepare zip file</a><a class="headerlink" href="#prepare-zip-file" title="Permalink to this headline">¶</a></h3>
-<p>To make <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html">deployment package</a> execute following commands:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bot</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">bot</span>
 
@@ -104,8 +102,8 @@ assigned to you is created. You’ll need:</p>
 <h4><a class="toc-backref" href="#id7">Environment variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">BOT_TOKEN</span></code> – the one you got from BotFather</li>
+<li><code class="docutils literal notranslate"><span class="pre">LOGGING_LEVEL</span></code> – Level of loger. Allowed values: DEBUG, INFO, CRITICAL, ERROR, WARNING.  Default value: INFO</li>
 <li><code class="docutils literal notranslate"><span class="pre">TELEGRAM_USER_ID</span></code> – put here your ID. You can get one by sending any message to <a class="reference external" href="https://telegram.me/itpp_myid_bot">Get My ID bot</a></li>
-<li><code class="docutils literal notranslate"><span class="pre">LOGGING_LEVEL</span></code> – Level of loger. (Allowed values: DEBUG, INFO, CRITICAL, ERROR, WARNING), by default: INFO</li>
 </ul>
 </div>
 <div class="section" id="trigger">
@@ -116,8 +114,8 @@ assigned to you is created. You’ll need:</p>
 </ul>
 </div>
 </div>
-<div class="section" id="register-webhook">
-<h3><a class="toc-backref" href="#id9">Register webhook</a><a class="headerlink" href="#register-webhook" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="register-lambda-webhook">
+<h3><a class="toc-backref" href="#id9">Register lambda webhook</a><a class="headerlink" href="#register-lambda-webhook" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Open Odoo</li>
 <li>Install <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/base_automation_webhook/">Outgoing Webhooks Module</a></li>
@@ -226,8 +224,11 @@ assigned to you is created. You’ll need:</p>
 <li class="toctree-l2"><a class="reference internal" href="../odoo2github/documentation.html">Create an github issue when the problem is confirmed in Odoo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../odoo2sms-via-lambda/documentation.html">Send SMS to a customer on receiving request</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../odoo2push-via-ifttt/documentation.html">Send PUSH notification when an eCommerce product becomes out of stock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo2dataiku/documentation.html">Analyzing Odoo GEO Information in Dataiku</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo2powerbi/documentation.html">Analyzing Odoo GEO Information in Power BI</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../odoo2odoo/index.html">Odoo to Odoo Integrations</a></li>
 </ul>
 
 <div class="relations">

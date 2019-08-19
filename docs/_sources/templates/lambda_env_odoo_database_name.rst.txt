@@ -1,0 +1,1 @@
+``ODOO_DATABASE_NAME`` -- database name of your Odoo

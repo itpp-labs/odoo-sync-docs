@@ -9,3 +9,5 @@ Odoo to X Integrations
    odoo2github/documentation
    odoo2sms-via-lambda/documentation
    odoo2push-via-ifttt/documentation
+   odoo2dataiku/documentation
+   odoo2powerbi/documentation

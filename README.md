@@ -1,6 +1,11 @@
-# odoo-test
+Source of odoo-sync.sh website
 
+# Roadmap
 * TODO: automate publishing github pages
+* TODO: demonstrate direct odoo 2 telegram integration (without lambda):
+
+  * rename existing page https://odoo-sync.sh/odoo2x/odoo2telegram/documentation.html to odoo2telegram-via-lambda
+  * use name odoo2telegram for the new page
 
 # How to contribute
 

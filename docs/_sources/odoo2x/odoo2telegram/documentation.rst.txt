@@ -37,6 +37,8 @@ Prepare zip file
 Create Lambda function
 ----------------------
 
+.. include:: ../../templates/create_lambda.rst
+
 Runtime
 ~~~~~~~
 

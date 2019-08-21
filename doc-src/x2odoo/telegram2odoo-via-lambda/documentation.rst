@@ -24,6 +24,8 @@ Configure OpenAPI
 * **Model**: Note (``note.note``)
 * ``[x] Create via API``
 
+.. image:: openapi-access.png
+
 Create a bot
 ------------
 
@@ -47,10 +49,14 @@ Prepare zip file
 Create Lambda function
 ----------------------
 
+.. include:: ../../templates/create_lambda.rst
+
 Runtime
 ~~~~~~~
 
 Use ``Python 3.6``
+
+.. image:: create-lambda.png
 
 Function code
 ~~~~~~~~~~~~~
@@ -73,13 +79,7 @@ Trigger
 Register telegram webhook
 -------------------------
 
-Tell telegram to send notifications to lambda function when bot receives new messages
-
-.. code-block:: sh
-
-    BOT_TOKEN="PASTE_BOT_TOKEN_HERE"
-    INVOKE_URL="https://PASTE-YOUR-INVOKE-URL"
-    curl -XPOST https://api.telegram.org/bot${BOT_TOKEN}/setWebhook --data-urlencode "url=${INVOKE_URL}"
+.. include:: ../../templates/telegram_webhook.rst
 
 Max execution time
 ------------------
@@ -89,9 +89,15 @@ Max execution time
 Try it out
 ==========
 
-* In telegram: send a message to the bot
+* In telegram: send some messages to the bot
+
+  .. image:: telegram-bot.png
+
 * In Odoo: open menu ``[[ Notes ]]``
-* RESULT: new note is created
+* RESULT: the notes are created
+
+  .. image:: odoo-notes.png
+
 * .. include:: ../../templates/check_odoo_cloudwatch_logs.rst
 
 Source

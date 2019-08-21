@@ -73,6 +73,7 @@
 <li><strong>Model</strong>: Note (<code class="docutils literal notranslate"><span class="pre">note.note</span></code>)</li>
 <li><code class="docutils literal notranslate"><span class="pre">[x]</span> <span class="pre">Create</span> <span class="pre">via</span> <span class="pre">API</span></code></li>
 </ul>
+<img alt="../../_images/openapi-access.png" src="../../_images/openapi-access.png" />
 </div>
 <div class="section" id="create-a-bot">
 <h3><a class="toc-backref" href="#id3">Create a bot</a><a class="headerlink" href="#create-a-bot" title="Permalink to this headline">¶</a></h3>
@@ -98,9 +99,15 @@
 </div>
 <div class="section" id="create-lambda-function">
 <h3><a class="toc-backref" href="#id5">Create Lambda function</a><a class="headerlink" href="#create-lambda-function" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Navigate to <a class="reference external" href="https://console.aws.amazon.com/lambda/home">https://console.aws.amazon.com/lambda/home</a></li>
+<li>Click <em>Create function</em></li>
+<li>Configure the function as described below</li>
+</ul>
 <div class="section" id="runtime">
 <h4><a class="toc-backref" href="#id6">Runtime</a><a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h4>
 <p>Use <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.6</span></code></p>
+<img alt="../../_images/create-lambda.png" src="../../_images/create-lambda.png" />
 </div>
 <div class="section" id="function-code">
 <h4><a class="toc-backref" href="#id7">Function code</a><a class="headerlink" href="#function-code" title="Permalink to this headline">¶</a></h4>
@@ -130,8 +137,11 @@
 <div class="section" id="register-telegram-webhook">
 <h3><a class="toc-backref" href="#id10">Register telegram webhook</a><a class="headerlink" href="#register-telegram-webhook" title="Permalink to this headline">¶</a></h3>
 <p>Tell telegram to send notifications to lambda function when bot receives new messages</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">BOT_TOKEN</span><span class="o">=</span><span class="s2">&quot;PASTE_BOT_TOKEN_HERE&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># set your values</span>
+<span class="nv">BOT_TOKEN</span><span class="o">=</span><span class="s2">&quot;PASTE_BOT_TOKEN_HERE&quot;</span>
 <span class="nv">INVOKE_URL</span><span class="o">=</span><span class="s2">&quot;https://PASTE-YOUR-INVOKE-URL&quot;</span>
+
+<span class="c1"># execute command below without changes</span>
 curl -XPOST https://api.telegram.org/bot<span class="si">${</span><span class="nv">BOT_TOKEN</span><span class="si">}</span>/setWebhook --data-urlencode <span class="s2">&quot;url=</span><span class="si">${</span><span class="nv">INVOKE_URL</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
@@ -143,11 +153,17 @@ curl -XPOST https://api.telegram.org/bot<span class="si">${</span><span class="n
 </div>
 <div class="section" id="try-it-out">
 <h2><a class="toc-backref" href="#id12">Try it out</a><a class="headerlink" href="#try-it-out" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>In telegram: send a message to the bot</li>
-<li>In Odoo: open menu <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">Notes</span> <span class="pre">]]</span></code></li>
-<li>RESULT: new note is created</li>
-<li>If something goes wrong, check Odoo logs and <a class="reference external" href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> logs</li>
+<ul>
+<li><p class="first">In telegram: send some messages to the bot</p>
+<img alt="../../_images/telegram-bot.png" src="../../_images/telegram-bot.png" />
+</li>
+<li><p class="first">In Odoo: open menu <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">Notes</span> <span class="pre">]]</span></code></p>
+</li>
+<li><p class="first">RESULT: the notes are created</p>
+<img alt="../../_images/odoo-notes.png" src="../../_images/odoo-notes.png" />
+</li>
+<li><p class="first">If something goes wrong, check Odoo logs and <a class="reference external" href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> logs</p>
+</li>
 </ul>
 </div>
 <div class="section" id="source">

@@ -6,6 +6,7 @@ Source of odoo-sync.sh website
 
   * rename existing page https://odoo-sync.sh/odoo2x/odoo2telegram/documentation.html to odoo2telegram-via-lambda
   * use name odoo2telegram for the new page
+* To demonstrate odoo2odoo integrations use following example: create note in second odoo when task is deleted in the first odoo
 
 # How to contribute
 

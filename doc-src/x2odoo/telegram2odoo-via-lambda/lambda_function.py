@@ -43,7 +43,7 @@ def lambda_handler(event, context):
     text = message.text
 
     if user.id != TELEGRAM_USER_ID:
-        bot.sendMessage(chat_id=chat.id, text="This is a private bot, sorry. If you want similary bot, check documentation at website https://odoo-sync.sh")
+        bot.sendMessage(chat_id=chat.id, text="This is a private bot, sorry. If you want a similar bot, check documentation at website https://odoo-sync.sh")
         return RESPONSE_200
 
     openapi_url = urlparse.urlparse(ODOO_OPENAPI_SPECIFICATION_URL)

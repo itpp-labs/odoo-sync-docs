@@ -1,0 +1,153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Create Leads in Odoo from messages forwarded to Telegram bot &#8212; odoo-sync.sh  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Premium Odoo Integrations" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="create-leads-in-odoo-from-messages-forwarded-to-telegram-bot">
+<h1>Create Leads in Odoo from messages forwarded to Telegram bot<a class="headerlink" href="#create-leads-in-odoo-from-messages-forwarded-to-telegram-bot" title="Permalink to this headline">¶</a></h1>
+<p>Here we’ll make a telegram bot, that receives your message and create a Note in Odoo with the same content. You’ll need:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://telegram.org/">Telegram</a> account to create a <a class="reference external" href="https://core.telegram.org/bots">telegram bot</a></li>
+<li>AWS Account to create <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a> function</li>
+<li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">REST API</a></li>
+</ul>
+
+    <video width="826"  controls autoplay>
+    <source src="../../_static/video/telegram-odoo-leads.mp4" type="video/mp4">
+    Video
+    </video>
+    <p>To get such personal bot, purchase the <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/telegram_leads/">package</a> from app store. It includes:</p>
+<ul class="simple">
+<li>Core <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">OpenAPI</a> module. You will not need to purchase it twice and any other custom integration will be <strong>discounted</strong></li>
+<li><strong>Prepared</strong> API access configuration needed to this integration</li>
+<li>Zip archive of python scripts to setup AWS lambda. AWS lambda hosting is <strong>free</strong> for <a class="reference external" href="https://aws.amazon.com/lambda/pricing/">1 Million requests and 400 000 GB-seconds per month</a></li>
+<li>Detailed <strong>documentation</strong> for deployment</li>
+<li>Warranted <strong>support</strong> for the integration</li>
+</ul>
+<p>Get the package here: <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/telegram_leads/">https://apps.odoo.com/apps/modules/10.0/telegram_leads/</a></p>
+<div class="warning admonition">
+<p class="first admonition-title">Custom integration</p>
+<p>For any further assistance contact us by <a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">email</a> or fill out <a class="reference external" href="https://www.it-projects.info/page/website.contactus">request form</a>:</p>
+<ul class="last simple">
+<li><a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">sync<span>&#64;</span>it-projects<span>&#46;</span>info</a></li>
+<li><a class="reference external" href="https://www.it-projects.info/page/website.contactus">https://www.it-projects.info/page/website.contactus</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">odoo-sync.sh</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=it-projects-llc&repo=odoo-test&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../x2odoo/index.html">X to Odoo Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../odoo2x/index.html">Odoo to X Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../odoo2odoo/index.html">Odoo to Odoo Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Premium Odoo Integrations</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create Leads in Odoo from messages forwarded to Telegram bot</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Premium Odoo Integrations</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Premium Odoo Integrations</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, IT-Projects LLC.
+
+       | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="nofollow">License: CC BY-NC-SA 4.0</a>
+
+      
+      |
+      <a href="../../_sources/premium/telegram_leads/documentation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

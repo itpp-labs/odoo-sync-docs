@@ -19,7 +19,9 @@ Source of https://odoo-sync.sh website
 * Install dependencies:
 
       sudo pip install sphinx sphinx-autobuild
-      sudo pip install sphinx_rtd_theme
+      sudo pip install alabaster
+      sudo pip install git+https://github.com/sphinx-contrib/video
+
 
 ## Contribution
 

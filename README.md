@@ -3,7 +3,6 @@
 Source of https://odoo-sync.sh website
 
 # Roadmap
-* TODO: automate publishing github pages
 * TODO: demonstrate direct odoo 2 telegram integration (without lambda):
 
   * rename existing page https://odoo-sync.sh/odoo2x/odoo2telegram/documentation.html to odoo2telegram-via-lambda
@@ -18,10 +17,7 @@ Source of https://odoo-sync.sh website
 * Clone to your machine
 * Install dependencies:
 
-      sudo pip install sphinx sphinx-autobuild
-      sudo pip install alabaster
-      sudo pip install git+https://github.com/sphinx-contrib/video
-
+      sudo pip install -r requirements.txt
 
 ## Contribution
 
@@ -40,10 +36,5 @@ Source of https://odoo-sync.sh website
 
       # open result
       google-chrome _build/html/index.html
-
-* To publish:
-
-      cd /path/to/odoo-test/doc-src
-      make github
       
 * Make commits, push, create Pull Request

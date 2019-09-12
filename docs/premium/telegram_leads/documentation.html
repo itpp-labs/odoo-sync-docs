@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Create Leads in Odoo from messages forwarded to Telegram bot &#8212; odoo-sync.sh  documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -38,9 +36,9 @@
 <h1>Create Leads in Odoo from messages forwarded to Telegram bot<a class="headerlink" href="#create-leads-in-odoo-from-messages-forwarded-to-telegram-bot" title="Permalink to this headline">¶</a></h1>
 <p>Here we’ll make a telegram bot, that receives your message and create a Note in Odoo with the same content. You’ll need:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://telegram.org/">Telegram</a> account to create a <a class="reference external" href="https://core.telegram.org/bots">telegram bot</a></li>
-<li>AWS Account to create <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a> function</li>
-<li><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">REST API</a></li>
+<li><p><a class="reference external" href="https://telegram.org/">Telegram</a> account to create a <a class="reference external" href="https://core.telegram.org/bots">telegram bot</a></p></li>
+<li><p>AWS Account to create <a class="reference external" href="https://aws.amazon.com/lambda/">AWS Lambda</a> function</p></li>
+<li><p><a class="reference external" href="https://www.odoo.com/">Odoo</a>  with admin access to setup <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">REST API</a></p></li>
 </ul>
 
     <video width="826"  controls autoplay>
@@ -49,19 +47,19 @@
     </video>
     <p>To get such personal bot, purchase the <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/telegram_leads/">package</a> from app store. It includes:</p>
 <ul class="simple">
-<li>Core <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">OpenAPI</a> module. You will not need to purchase it twice and any other custom integration will be <strong>discounted</strong></li>
-<li><strong>Prepared</strong> API access configuration needed to this integration</li>
-<li>Zip archive of python scripts to setup AWS lambda. AWS lambda hosting is <strong>free</strong> for <a class="reference external" href="https://aws.amazon.com/lambda/pricing/">1 Million requests and 400 000 GB-seconds per month</a></li>
-<li>Detailed <strong>documentation</strong> for deployment</li>
-<li>Warranted <strong>support</strong> for the integration</li>
+<li><p>Core <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/openapi/">OpenAPI</a> module. You will not need to purchase it twice and any other custom integration will be <strong>discounted</strong></p></li>
+<li><p><strong>Prepared</strong> API access configuration needed to this integration</p></li>
+<li><p>Zip archive of python scripts to setup AWS lambda. AWS lambda hosting is <strong>free</strong> for <a class="reference external" href="https://aws.amazon.com/lambda/pricing/">1 Million requests and 400 000 GB-seconds per month</a></p></li>
+<li><p>Detailed <strong>documentation</strong> for deployment</p></li>
+<li><p>Warranted <strong>support</strong> for the integration</p></li>
 </ul>
 <p>Get the package here: <a class="reference external" href="https://apps.odoo.com/apps/modules/10.0/telegram_leads/">https://apps.odoo.com/apps/modules/10.0/telegram_leads/</a></p>
 <div class="warning admonition">
-<p class="first admonition-title">Custom integration</p>
+<p class="admonition-title">Custom integration</p>
 <p>For any further assistance contact us by <a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">email</a> or fill out <a class="reference external" href="https://www.it-projects.info/page/website.contactus">request form</a>:</p>
-<ul class="last simple">
-<li><a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">sync<span>&#64;</span>it-projects<span>&#46;</span>info</a></li>
-<li><a class="reference external" href="https://www.it-projects.info/page/website.contactus">https://www.it-projects.info/page/website.contactus</a></li>
+<ul class="simple">
+<li><p><a class="reference external" href="mailto:sync&#37;&#52;&#48;it-projects&#46;info">sync<span>&#64;</span>it-projects<span>&#46;</span>info</a></p></li>
+<li><p><a class="reference external" href="https://www.it-projects.info/page/website.contactus">https://www.it-projects.info/page/website.contactus</a></p></li>
 </ul>
 </div>
 </div>
@@ -112,13 +110,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>

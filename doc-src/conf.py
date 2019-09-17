@@ -84,7 +84,7 @@ html_theme = 'alabaster'
 html_theme_options = {
     'show_powered_by': False,
     'github_user': 'it-projects-llc',
-    'github_repo': 'odoo-test',
+    'github_repo': 'odoo-sync',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

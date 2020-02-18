@@ -19,9 +19,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'odoo-sync.sh'
-copyright = u'2019, IT-Projects LLC'
-author = u'IT-Projects LLC'
+project = u'itpp.dev/sync/'
+copyright = u'2020, IT-Projects Labs; 2019, IT-Projects LLC'
+author = u'IT Projects Labs'
 
 # The short X.Y version
 version = u''
@@ -83,8 +83,8 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     'show_powered_by': False,
-    'github_user': 'it-projects-llc',
-    'github_repo': 'odoo-sync',
+    'github_user': 'itpp-labs',
+    'github_repo': 'odoo-sync-docs',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

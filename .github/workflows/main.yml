@@ -29,14 +29,3 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         SOURCE_DIR: 'doc-src/_build/html'
         DEST_DIR: 'itpp.dev/sync/'
-    - uses: matheusalbino/git-commit@v1.0.1
-      name: Commit updates
-      with:
-        user-name: Marc Demo (from Github Actions)
-        user-email: i18n-bot@it-projects.info
-        message: |
-          :alien: recompile docs
-          
-          Sent from Github Actions (see .github/workflows/main.yml )
-        github-token: ${{ secrets.MY_GITHUB_TOKEN }}
-

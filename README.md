@@ -1,11 +1,11 @@
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-Source of https://odoo-sync.sh website
+Source of https://itpp.dev/sync/ website
 
 # Roadmap
 * TODO: demonstrate direct odoo 2 telegram integration (without lambda):
 
-  * rename existing page https://odoo-sync.sh/odoo2x/odoo2telegram/documentation.html to odoo2telegram-via-lambda
+  * rename existing page https://itpp.dev/sync/odoo2x/odoo2telegram/documentation.html to odoo2telegram-via-lambda
   * use name odoo2telegram for the new page
 * To demonstrate odoo2odoo integrations use following example: create note in second odoo when task is deleted in the first odoo
 
